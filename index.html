@@ -24,6 +24,13 @@
       <button type="submit" class="btn-add">新增</button>
     </form>
 
+    <!-- 篩選目前要顯示的待辦事項 -->
+    <div class="filter-bar" role="group" aria-label="待辦事項篩選">
+      <button class="filter-button active" type="button" data-filter="all" aria-pressed="true">全部</button>
+      <button class="filter-button" type="button" data-filter="active" aria-pressed="false">未完成</button>
+      <button class="filter-button" type="button" data-filter="completed" aria-pressed="false">已完成</button>
+    </div>
+
     <!-- 待辦清單由 app.js 動態產生 -->
     <ul id="todo-list" class="todo-list" aria-live="polite"></ul>
 
