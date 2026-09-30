@@ -6,9 +6,11 @@ const input = document.getElementById('todo-input');
 const list = document.getElementById('todo-list');
 const emptyState = document.getElementById('empty-state');
 const remainingCount = document.getElementById('remaining-count');
+const filterButtons = document.querySelectorAll('.filter-button');
 
 // 每筆待辦包含 id、文字與完成狀態
 let todos = loadTodos();
+let currentFilter = 'all';
 
 // 從 localStorage 讀取資料,格式不正確時使用空清單
 function loadTodos() {
@@ -31,7 +33,13 @@ function saveTodos() {
 function render() {
   list.replaceChildren();
 
-  todos.forEach((todo) => {
+  const visibleTodos = todos.filter((todo) => {
+    if (currentFilter === 'active') return !todo.completed;
+    if (currentFilter === 'completed') return todo.completed;
+    return true;
+  });
+
+  visibleTodos.forEach((todo) => {
     const item = document.createElement('li');
     item.className = todo.completed ? 'todo-item completed' : 'todo-item';
     item.dataset.id = todo.id;
@@ -58,7 +66,14 @@ function render() {
     list.append(item);
   });
 
-  emptyState.hidden = todos.length > 0;
+  emptyState.hidden = visibleTodos.length > 0;
+  emptyState.textContent = todos.length === 0
+    ? '還沒有任何待辦事項,新增一個吧!'
+    : currentFilter === 'active'
+      ? '目前沒有未完成的事項。'
+      : currentFilter === 'completed'
+        ? '目前沒有已完成的事項,項目可能只是被目前的篩選條件隱藏。'
+        : '還沒有任何待辦事項,新增一個吧!';
   const remaining = todos.filter((todo) => !todo.completed).length;
   remainingCount.textContent = `未完成:${remaining} 項`;
 }
@@ -119,6 +134,19 @@ list.addEventListener('click', (event) => {
   if (event.target.matches('.btn-delete')) {
     deleteTodo(item.dataset.id);
   }
+});
+
+// 切換篩選條件
+filterButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    currentFilter = button.dataset.filter;
+    filterButtons.forEach((filterButton) => {
+      const isActive = filterButton === button;
+      filterButton.classList.toggle('active', isActive);
+      filterButton.setAttribute('aria-pressed', String(isActive));
+    });
+    render();
+  });
 });
 
 // 頁面載入時顯示已保存的待辦事項

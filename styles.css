@@ -12,6 +12,7 @@
   --accent: #2f806d;
   --accent-hover: #256b5a;
   --danger: #bf5d5d;
+  --danger-background: #fbeeee;
   --shadow: 0 14px 35px rgba(38, 72, 61, 0.1);
 }
 
@@ -81,6 +82,33 @@ h1 {
   background: var(--accent-hover);
 }
 
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  margin: -6px 0 22px;
+}
+
+.filter-button {
+  padding: 7px 14px;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.filter-button:hover {
+  background: var(--item-background);
+}
+
+.filter-button.active {
+  color: #ffffff;
+  background: var(--accent);
+  border-color: var(--accent);
+  font-weight: 700;
+}
+
 .todo-list {
   display: flex;
   flex-direction: column;
@@ -132,7 +160,7 @@ h1 {
 }
 
 .btn-delete:hover {
-  background: #fbeeee;
+  background: var(--danger-background);
 }
 
 .empty-state {
@@ -177,5 +205,10 @@ h1 {
 
   .btn-add {
     min-height: 44px;
+  }
+
+  .filter-button {
+    flex: 1;
+    padding-inline: 8px;
   }
 }
