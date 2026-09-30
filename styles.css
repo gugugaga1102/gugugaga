@@ -12,6 +12,8 @@
   --accent: #2f806d;
   --accent-hover: #256b5a;
   --danger: #bf5d5d;
+  --danger-background: #fbeeee;
+  --button-text: #ffffff;
   --shadow: 0 14px 35px rgba(38, 72, 61, 0.1);
 }
 
@@ -68,7 +70,7 @@ h1 {
 
 .btn-add {
   padding: 0 20px;
-  color: #ffffff;
+  color: var(--button-text);
   background: var(--accent);
   border: 0;
   border-radius: 8px;
@@ -132,7 +134,7 @@ h1 {
 }
 
 .btn-delete:hover {
-  background: #fbeeee;
+  background: var(--danger-background);
 }
 
 .empty-state {
@@ -142,12 +144,31 @@ h1 {
 }
 
 .app-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   margin-top: 22px;
   padding-top: 16px;
   color: var(--muted-text);
   border-top: 1px solid var(--border);
   font-size: 0.92rem;
   text-align: center;
+}
+
+.btn-clear-completed {
+  padding: 6px 10px;
+  color: var(--danger);
+  background: transparent;
+  border: 1px solid var(--danger);
+  border-radius: 6px;
+  font: inherit;
+  font-size: 0.86rem;
+  cursor: pointer;
+}
+
+.btn-clear-completed:hover {
+  background: var(--danger-background);
 }
 
 .sr-only {
@@ -177,5 +198,10 @@ h1 {
 
   .btn-add {
     min-height: 44px;
+  }
+
+  .app-footer {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
